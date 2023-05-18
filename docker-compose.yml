@@ -1,0 +1,87 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres:12.12-alpine
+    container_name: postgres
+    restart: always
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    restart: always
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+    env_file:
+      - ./.env
+    ports:
+      - 15672:15672
+      - 5672:5672
+  
+
+  celeryworker:
+    container_name: celeryworker
+    build:
+      context: django_search/
+      dockerfile: Dockerfile
+    command: celery -A django_search.celery.app worker --pool=prefork -l info
+    volumes:
+      - ./django_search:/app/web
+    env_file:
+      - ./.env
+    depends_on:
+      - rabbitmq
+  
+  celeryscheduler:
+    container_name: celeryscheduler
+    build:
+      context: django_search/
+      dockerfile: Dockerfile
+    command: celery -A django_search beat -l info
+    volumes:
+      - ./django_search:/app/web
+    env_file:
+      - ./.env
+    depends_on:
+      - rabbitmq
+  
+  # flower:
+  #   build: ./
+  #   command: celery -A tasks flower
+  #   volumes:
+  #     - ./django_search:/data
+  #   working_dir: /data
+  #   ports:
+  #     - 5555:5555
+
+  web:
+    container_name: web
+    build:
+      context: django_search/
+      dockerfile: Dockerfile
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./django_search:/app/web
+    env_file:
+      - ./.env
+    ports:
+      - 8000:8000
+    depends_on:
+      - rabbitmq
+
+  bot:
+    container_name: bot
+    build:
+      context: telegram_bot/
+      dockerfile: Dockerfile
+    restart: always
+    command: python main.py
+    volumes:
+      - ./telegram_bot:/app/bot
+    env_file:
+      - ./.env
