@@ -21,16 +21,15 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
-  
 
   celeryworker:
     container_name: celeryworker
     build:
-      context: django_search/
+      context: crm/
       dockerfile: Dockerfile
-    command: celery -A django_search.celery.app worker --pool=prefork -l info
+    command: celery -A crm.celery.app worker --pool=prefork -l info
     volumes:
-      - ./django_search:/app/web
+      - ./crm:/app/web
     env_file:
       - ./.env
     depends_on:
@@ -39,51 +38,56 @@ services:
   celeryscheduler:
     container_name: celeryscheduler
     build:
-      context: django_search/
+      context: crm/
       dockerfile: Dockerfile
-    command: celery -A django_search beat -l info
+    command: celery -A crm beat -l info
     volumes:
-      - ./django_search:/app/web
+      - ./crm:/app/web
     env_file:
       - ./.env
     depends_on:
       - rabbitmq
-
-  flower:
-    container_name: flower
-    build:
-      context: django_search/
-      dockerfile: Dockerfile
-    command: celery -A django_search flower
-    ports:
-      - 5555:5555
-    env_file:
-      - ./.env
 
   web:
     container_name: web
     build:
-      context: django_search/
+      context: crm/
       dockerfile: Dockerfile
     restart: always
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn crm.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - ./django_search:/app/web
+      - ./crm/staticfiles:/app/web/staticfiles
+      - ./crm/mediafiles:/home/app/web/mediafiles
     env_file:
       - ./.env
-    ports:
-      - 8000:8000
+    expose:
+      - 8000
     depends_on:
+      - postgres
       - rabbitmq
-
+  
   bot:
     container_name: bot
     build:
-      context: telegram_bot/
+      context: bot/
       dockerfile: Dockerfile
     restart: always
     command: python main.py
     volumes:
-      - ./telegram_bot:/app/bot
+      - ./bot:/app/bot
     env_file:
       - ./.env
+
+  nginx:
+    container_name: nginx
+    build:
+      context:  nginx/
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./crm/staticfiles:/app/web/staticfiles
+      - ./crm/mediafiles:/home/app/web/mediafiles
+    depends_on:
+      - web

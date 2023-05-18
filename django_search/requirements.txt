@@ -22,13 +22,16 @@ django-cors-headers==4.0.0
 django-currentuser==0.5.3
 django-filter==23.2
 djangorestframework==3.14.0
+flower==1.2.0
 frozenlist==1.3.3
+humanize==4.6.0
 idna==3.4
 importlib-metadata==6.6.0
 kombu==5.2.4
 magic-filter==1.0.9
 Markdown==3.4.3
 multidict==6.0.4
+prometheus-client==0.16.0
 prompt-toolkit==3.0.38
 psycopg2-binary==2.9.6
 pyTelegramBotAPI==4.11.0
@@ -37,6 +40,7 @@ requests==2.30.0
 six==1.16.0
 soupsieve==2.4.1
 sqlparse==0.4.4
+tornado==6.3.2
 tzlocal==5.0.1
 urllib3==1.26.6
 vine==5.0.0
