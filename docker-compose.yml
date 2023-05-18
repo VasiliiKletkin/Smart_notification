@@ -48,15 +48,18 @@ services:
       - ./.env
     depends_on:
       - rabbitmq
-  
-  # flower:
-  #   build: ./
-  #   command: celery -A tasks flower
-  #   volumes:
-  #     - ./django_search:/data
-  #   working_dir: /data
-  #   ports:
-  #     - 5555:5555
+
+  flower:
+    container_name: flower
+    build:
+      context: django_search/
+      dockerfile: Dockerfile
+    command: celery -A tasks flower
+    ports:
+      - 5555:5555
+    depends_on:
+      - redis
+
 
   web:
     container_name: web
