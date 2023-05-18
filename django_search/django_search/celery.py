@@ -15,7 +15,7 @@ app.conf.beat_schedule = {
 
     "every_ten_minets": {
         "task": "tickets.tasks.parse_data",
-        "schedule": crontab(minute="*/2"),
+        "schedule": crontab(minute="*/1"),
     },
 }
 

@@ -15,10 +15,7 @@ class AdModelViewSet(ModelViewSet):
     
     @action(detail=True, methods=['get'])
     def sent(self, request, pk=None):
-        ad = self.get_object()
-        ad.is_sent = True
-        ad.save()
-        # Ad.objects.filter(pk=pk).update(is_sent=True)
+        Ad.objects.filter(pk=pk).update(is_sent=True)
         # serializer = self.get_serializer(ad)
         return Response({"status": "success"})
    

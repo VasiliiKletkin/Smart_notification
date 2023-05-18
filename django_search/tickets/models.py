@@ -4,7 +4,7 @@ from django_currentuser.db.models import CurrentUserField
 
 class Ticket(models.Model):
     title = models.CharField(max_length=255, verbose_name='Title')
-    url = models.URLField()
+    url = models.URLField(max_length=1024)
     telegram_id = models.CharField(max_length=30, verbose_name="Telegram")
     created_by = CurrentUserField()
     is_active = models.BooleanField(default=False, verbose_name="Active")

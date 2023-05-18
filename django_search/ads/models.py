@@ -6,7 +6,7 @@ from tickets.models import Ticket
 
 class Ad(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name="ads")
-    url = models.URLField()
+    url = models.URLField(max_length=1024)
     title = models.CharField(max_length=255)
     price = models.CharField(max_length=255)
     is_sent = models.BooleanField(default=False)
