@@ -74,7 +74,7 @@ services:
     restart: always
     command: python main.py
     volumes:
-      - ./bot:/app/bot
+      - ./telegram_bot:/app/bot
     env_file:
       - ./.env
 
