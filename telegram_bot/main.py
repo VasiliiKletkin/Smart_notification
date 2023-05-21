@@ -7,7 +7,7 @@ import aioschedule
 from aiogram import Bot, Dispatcher, executor, types
 
 TOKEN = os.getenv("TOKEN")
-BASE_URL = os.getenv("BASE_URL")
+BASE_URL ="http://web:8000/"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
@@ -40,7 +40,7 @@ async def sending_messages():
 
 
 async def scheduler():
-    aioschedule.every(int(2)).minutes.do(sending_messages)
+    aioschedule.every(int(1)).minutes.do(sending_messages)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)

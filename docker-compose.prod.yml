@@ -25,11 +25,11 @@ services:
   celeryworker:
     container_name: celeryworker
     build:
-      context: crm/
+      context: django_search/
       dockerfile: Dockerfile
-    command: celery -A crm.celery.app worker --pool=prefork -l info
+    command: celery -A django_search worker --pool=prefork -l info
     volumes:
-      - ./crm:/app/web
+      - ./django_search:/app/web
     env_file:
       - ./.env
     depends_on:
@@ -38,11 +38,11 @@ services:
   celeryscheduler:
     container_name: celeryscheduler
     build:
-      context: crm/
+      context: django_search/
       dockerfile: Dockerfile
-    command: celery -A crm beat -l info
+    command: celery -A django_search beat -l info
     volumes:
-      - ./crm:/app/web
+      - ./django_search:/app/web
     env_file:
       - ./.env
     depends_on:
@@ -51,13 +51,13 @@ services:
   web:
     container_name: web
     build:
-      context: crm/
+      context: django_search/
       dockerfile: Dockerfile
     restart: always
-    command: gunicorn crm.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn django_search.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - ./crm/staticfiles:/app/web/staticfiles
-      - ./crm/mediafiles:/home/app/web/mediafiles
+      - ./django_search/staticfiles:/app/web/staticfiles
+      - ./django_search/mediafiles:/home/app/web/mediafiles
     env_file:
       - ./.env
     expose:
@@ -69,7 +69,7 @@ services:
   bot:
     container_name: bot
     build:
-      context: bot/
+      context: telegram_bot/
       dockerfile: Dockerfile
     restart: always
     command: python main.py
@@ -87,7 +87,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./crm/staticfiles:/app/web/staticfiles
-      - ./crm/mediafiles:/home/app/web/mediafiles
+      - ./django_search/staticfiles:/app/web/staticfiles
+      - ./django_search/mediafiles:/home/app/web/mediafiles
     depends_on:
       - web

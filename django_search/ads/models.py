@@ -1,5 +1,3 @@
-from typing import Iterable, Optional
-
 from django.db import models
 from tickets.models import Ticket
 
