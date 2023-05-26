@@ -32,6 +32,11 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
+if DEBUG:
+    import socket  # only if you haven't already imported this
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,6 +48,7 @@ INSTALLED_APPS = [
 
     'admin_argon.apps.AdminArgonConfig',
     'django.contrib.admin',
+    "debug_toolbar",
 
     "tickets",
     "ads",
@@ -60,6 +66,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_currentuser.middleware.ThreadLocalUserMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "django_search.urls"
@@ -142,7 +149,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+
+STATIC_URL = 'static/'
+STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles')
+
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT= os.path.join(BASE_DIR,'mediafiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

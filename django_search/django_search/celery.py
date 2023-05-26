@@ -13,8 +13,12 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
 
-    "every_ten_minets": {
+    "parse_data": {
         "task": "tickets.tasks.parse_data",
+        "schedule": crontab(minute="*/1"),
+    },
+        "send_ads": {
+        "task": "ads.tasks.send_ads",
         "schedule": crontab(minute="*/1"),
     },
 }

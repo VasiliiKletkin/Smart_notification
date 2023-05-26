@@ -12,6 +12,9 @@ req:
 runbot:
 	python bot/main.py
 
+dfiststart:
+	make dcreatedb && make dmigr && make dcollect && python crm/manage.py createsuperuser
+
 dcollect:
 	docker-compose exec web python manage.py collectstatic
 dup:

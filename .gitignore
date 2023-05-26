@@ -161,3 +161,6 @@ cython_debug/
 .vscode/
 postgres_data
 rabbitmq
+
+mediafiles
+staticfiles

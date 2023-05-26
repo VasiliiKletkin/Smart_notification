@@ -49,16 +49,16 @@ services:
     depends_on:
       - rabbitmq
 
-  flower:
-    container_name: flower
-    build:
-      context: django_search/
-      dockerfile: Dockerfile
-    command: celery -A django_search flower
-    ports:
-      - 5555:5555
-    env_file:
-      - ./.env
+  # flower:
+  #   container_name: flower
+  #   build:
+  #     context: django_search/
+  #     dockerfile: Dockerfile
+  #   command: celery -A django_search flower
+  #   ports:
+  #     - 5555:5555
+  #   env_file:
+  #     - ./.env
 
   web:
     container_name: web
@@ -79,11 +79,11 @@ services:
   bot:
     container_name: bot
     build:
-      context: telegram_bot/
+      context: django_search/
       dockerfile: Dockerfile
     restart: always
-    command: python main.py
+    command: python manage.py bot
     volumes:
-      - ./telegram_bot:/app/bot
+      - ./django_search:/app/web
     env_file:
       - ./.env

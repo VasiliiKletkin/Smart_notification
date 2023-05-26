@@ -27,7 +27,7 @@ services:
     build:
       context: django_search/
       dockerfile: Dockerfile
-    command: celery -A django_search worker --pool=prefork -l info
+    command: celery -A django_search.celery.app worker --pool=prefork -l info
     volumes:
       - ./django_search:/app/web
     env_file:
@@ -56,7 +56,7 @@ services:
     restart: always
     command: gunicorn django_search.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - ./django_search/staticfiles:/app/web/staticfiles
+      - ./django_search/staticfiles:/home/app/web/staticfiles
       - ./django_search/mediafiles:/home/app/web/mediafiles
     env_file:
       - ./.env
@@ -69,12 +69,12 @@ services:
   bot:
     container_name: bot
     build:
-      context: telegram_bot/
+      context: django_search/
       dockerfile: Dockerfile
     restart: always
-    command: python main.py
+    command: python manage.py bot
     volumes:
-      - ./telegram_bot:/app/bot
+      - ./django_search:/app/web
     env_file:
       - ./.env
 
@@ -87,7 +87,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./django_search/staticfiles:/app/web/staticfiles
+      - ./django_search/staticfiles:/home/app/web/staticfiles
       - ./django_search/mediafiles:/home/app/web/mediafiles
     depends_on:
       - web
