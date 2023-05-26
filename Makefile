@@ -1,19 +1,9 @@
 #!make
 include .env
 
-run:
-	python crm/manage.py runserver
-migr:
-	python crm/manage.py makemigrations && python crm/manage.py migrate
-user:
-	python crm/manage.py createsuperuser
-req:
-	pip freeze > requirements.txt
-runbot:
-	python bot/main.py
 
 dfiststart:
-	make dcreatedb && make dmigr && make dcollect && python crm/manage.py createsuperuser
+	make dupbuild && make dcreatedb && make dmigr && make dcollect && python crm/manage.py createsuperuser
 
 dcollect:
 	docker-compose exec web python manage.py collectstatic
