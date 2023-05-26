@@ -4,7 +4,7 @@ from .models import Ticket
 
 class TicketAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_active', )
-    fields = ("title", "url", "telegram_username", "is_active", "telegram")
+    fields = ("title", "url", "telegram_username", "is_active", "telegram", "created_by")
     readonly_fields = ("telegram",)
 
     def get_queryset(self, request):
