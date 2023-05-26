@@ -11,7 +11,7 @@ class Ticket(models.Model):
     url = models.URLField(max_length=1024)
     telegram_username = models.CharField(max_length=30, verbose_name="Telegram")
     created_by = CurrentUserField()
-    is_active = models.BooleanField(default=False, verbose_name="Active")
+    is_active = models.BooleanField(default=True, verbose_name="Active")
     telegram = models.ForeignKey(Telegram, blank=True, null=True, on_delete=models.CASCADE, related_name="tickets")
     class Meta:
         verbose_name = 'Ticket'

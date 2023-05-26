@@ -1,10 +1,9 @@
 from django.contrib import admin
 from .models import Ticket
-from profiles.models import Telegram
 
 
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('title', 'title', )
+    list_display = ('title', 'is_active', )
     fields = ("title", "url", "telegram_username", "is_active", "telegram")
     readonly_fields = ("telegram",)
 
