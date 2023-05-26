@@ -56,7 +56,7 @@ services:
     restart: always
     command: gunicorn django_search.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - ./django_search/staticfiles:/home/app/web/staticfiles
+      - ./django_search/staticfiles:/app/web/staticfiles
       - ./django_search/mediafiles:/home/app/web/mediafiles
     env_file:
       - ./.env
@@ -87,7 +87,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./django_search/staticfiles:/home/app/web/staticfiles
+      - ./django_search/staticfiles:/app/web/staticfiles
       - ./django_search/mediafiles:/home/app/web/mediafiles
     depends_on:
       - web
