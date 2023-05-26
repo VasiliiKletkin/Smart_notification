@@ -2,6 +2,7 @@ import os
 
 from django.core.management.base import BaseCommand
 from dotenv import load_dotenv
+from profiles.models import Telegram
 from telebot import TeleBot
 
 load_dotenv()
@@ -13,9 +14,15 @@ bot = TeleBot(TOKEN, threaded=False)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-	bot.reply_to(message, "Howdy, how are you doing?")
+  bot.send_message(message.chat.id, "Hi, I will post new ads here, move to smartnotification.ru")
+  username = message.from_user.username
+  id = message.from_user.id
+  try:  
+    Telegram.objects.create(username = username, telegram_id = id)
+  except:
+      pass
 
-# Название класса обязательно - "Command"
+
 class Command(BaseCommand):
   	# Используется как описание команды обычно
     help = 'Implemented to Django application telegram bot setup command'

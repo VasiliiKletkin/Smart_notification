@@ -22,6 +22,7 @@ from django.urls import include, path
 urlpatterns = [
     path("", admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
+    path('', include('admin_argon.urls')),
     # path("api/v1/", include("ads.urls")),
 ]
 
