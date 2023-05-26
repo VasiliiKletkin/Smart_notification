@@ -2,8 +2,8 @@
 include .env
 
 
-dfiststart:
-	make dcreatedb && make dmigr && make dcollect && make duser
+dstrt:
+	make dmigr && make dcollect
 
 dcollect:
 	docker-compose exec web python manage.py collectstatic
