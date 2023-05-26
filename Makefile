@@ -3,14 +3,14 @@ include .env
 
 
 dfiststart:
-	make dupbuild && make dcreatedb && make dmigr && make dcollect && python crm/manage.py createsuperuser
+	make dcreatedb && make dmigr && make dcollect && make duser
 
 dcollect:
 	docker-compose exec web python manage.py collectstatic
-dup:
-	docker-compose -f "docker-compose.prod.yml" up -d
 dupbuild:
-	docker-compose -f "docker-compose.prod.yml" up --build
+	docker-compose -f "docker-compose.prod.yml" up --build -d
+dup:
+	docker-compose -f "docker-compose.prod.yml" up
 dbuild:
 	docker-compose -f "docker-compose.prod.yml" build
 dstop:
