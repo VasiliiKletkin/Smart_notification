@@ -14,7 +14,7 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     "parse_data": {
         "task": "tickets.tasks.parse_data",
-        "schedule": crontab(minute="*/1"),
+        "schedule": crontab(minute="*/5"),
     },
     "delete_old_ads": {
         "task": "ads.tasks.delete_old_ads",
@@ -22,6 +22,6 @@ app.conf.beat_schedule = {
     },
     "send_ads": {
         "task": "ads.tasks.send_ads",
-        "schedule": crontab(minute="*/1"),
+        "schedule": crontab(minute="*/5"),
     },
 }

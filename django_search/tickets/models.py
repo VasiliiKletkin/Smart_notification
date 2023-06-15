@@ -22,6 +22,7 @@ class Ticket(models.Model):
         verbose_name = "Ticket"
         verbose_name_plural = "Tickets"
         indexes = [
+            models.Index(name="ticket_created_by_idx", fields=["created_by"]),
             models.Index(name="ticket_created_at_idx", fields=["created_at"]),
             models.Index(name="ticket_is_active_idx", fields=["is_active"]),
         ]            
