@@ -15,5 +15,5 @@ ENV PYTHONUNBUFFERED=1
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt
 
-WORKDIR /app/web
+WORKDIR /home/app/web
 COPY . .
