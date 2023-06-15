@@ -7,7 +7,7 @@ from .models import Ad
 
 @app.task
 def send_ads():
-    ads = Ad.objects.filter(is_sent=False)
+    ads = Ad.objects.filter(is_sent=False).select_related("ticket", "ticket__telegram")
     for ad in ads:
         message = f"New ad : {ad.ticket.title} {ad.url}"
         user_id = ad.ticket.telegram.user_id
@@ -20,4 +20,4 @@ def delete_old_ads():
     from datetime import datetime, timedelta
 
     end_datetime = datetime.now() - timedelta(days=7)
-    Ad.objects.filter(create_at__lte=end_datetime).delete()
+    Ad.objects.filter(created_at__lte=end_datetime).delete()

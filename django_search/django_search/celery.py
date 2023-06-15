@@ -1,4 +1,3 @@
-from calendar import week
 import os
 from celery import Celery
 from celery.schedules import crontab

@@ -11,6 +11,10 @@ class Telegram(models.Model):
     class Meta:
         verbose_name = "Telegram profile"
         verbose_name_plural = "Telegram profiles"
+        indexes = [
+            models.Index(name="telegram_user_id_idx", fields=["user_id"]),
+            models.Index(name="telegram_username_idx", fields=["username"]),
+        ]
 
     def __str__(self):
         return f"{self.username}-{self.user_id}, {self.first_name} {self.last_name}"
