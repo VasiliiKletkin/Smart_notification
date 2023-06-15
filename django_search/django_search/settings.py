@@ -40,6 +40,8 @@ if DEBUG:
 # Application definition
 
 INSTALLED_APPS = [
+    'dal',
+    'dal_select2',
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
     "tickets",
     "ads",
     "profiles",
+    "bot",
 
     "django_filters",
     "rest_framework",
@@ -140,7 +143,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Moscow"
 
 USE_I18N = True
 
