@@ -13,4 +13,3 @@ def send_welcome(message):
     )
   bot.send_message(message.chat.id, "Hi, I will post new ads here, move to smartnotification.ru")
   bot.send_message(message.chat.id, f"your ID:{obj.user_id}, your username:{obj.username}")
-
