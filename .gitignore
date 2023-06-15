@@ -164,3 +164,4 @@ rabbitmq
 
 mediafiles
 staticfiles
+env.prod
