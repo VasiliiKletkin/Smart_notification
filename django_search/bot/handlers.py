@@ -1,5 +1,3 @@
-from telebot import types
-
 from .config import bot
 from .models import Telegram
 
