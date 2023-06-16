@@ -29,7 +29,7 @@ services:
       dockerfile: Dockerfile
     command: celery -A django_search.celery.app worker --pool=prefork -l info
     volumes:
-      - ./django_search:/app/web
+      - ./django_search:/home/app/web
     env_file:
       - ./.env
     depends_on:
@@ -42,7 +42,7 @@ services:
       dockerfile: Dockerfile
     command: celery -A django_search beat -l info
     volumes:
-      - ./django_search:/app/web
+      - ./django_search:/home/app/web
     env_file:
       - ./.env
     depends_on:
@@ -74,7 +74,7 @@ services:
     restart: always
     command: python manage.py bot
     volumes:
-      - ./django_search:/app/web
+      - ./django_search:/home/app/web
     env_file:
       - ./.env
 

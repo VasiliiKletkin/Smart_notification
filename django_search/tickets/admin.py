@@ -19,7 +19,7 @@ class TicketAdmin(admin.ModelAdmin):
             "is_active",
         )
         self.readonly_fields = ()
-        return super().add_view(request, extra_context=extra_content)
+        return super().add_view(request)
 
     def change_view(self, request, object_id, extra_context=None):
         self.fields = (
@@ -34,7 +34,7 @@ class TicketAdmin(admin.ModelAdmin):
             "created_by",
             "created_at",
         )
-        return super().change_view(request, object_id, extra_context)
+        return super().change_view(request, object_id)
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
