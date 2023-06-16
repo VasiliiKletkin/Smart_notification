@@ -9,7 +9,7 @@ class Ticket(models.Model):
     created_by = CurrentUserField()
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255, verbose_name="Title")
-    url = models.URLField(max_length=1024)
+    url = models.URLField(max_length=1536)
     is_active = models.BooleanField(default=True, verbose_name="Active")
     telegram = models.ForeignKey(
         Telegram,
