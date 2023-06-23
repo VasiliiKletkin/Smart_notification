@@ -8,7 +8,7 @@ dstrt:
 dcollect:
 	docker-compose exec web python manage.py collectstatic
 dupbuild:
-	docker-compose -f "docker-compose.prod.yml" up --build -d
+	docker-compose -f "docker-compose.prod.yml" up --build
 dup:
 	docker-compose -f "docker-compose.prod.yml" up
 dbuild:
