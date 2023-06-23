@@ -166,3 +166,4 @@ certbot
 mediafiles
 staticfiles
 .env.prod
+*.dump
