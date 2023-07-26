@@ -1,5 +1,6 @@
+from typing import Any
 from django.contrib import admin
-
+from resources.models import Resource
 from .forms import TicketForm
 from .models import Ticket
 
@@ -42,5 +43,10 @@ class TicketAdmin(admin.ModelAdmin):
             qs = qs.filter(created_by=request.user)
         return qs
 
+    def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
+        hostname = obj.url.split("://")[1].split("/")[0]
+        obj.resource = Resource.objects.get(url__icontains=hostname)
+        return super().save_model(request, obj, form, change)
+    
 
 admin.site.register(Ticket, TicketAdmin)

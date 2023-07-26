@@ -57,8 +57,10 @@ INSTALLED_APPS = [
 
     "tickets",
     "ads",
-    "profiles",
     "bot",
+    'scraper',
+    "resources",
+    
 
     "django_filters",
     "rest_framework",

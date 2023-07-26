@@ -12,16 +12,16 @@ app.autodiscover_tasks()
 # Celery Beat Settings
 
 app.conf.beat_schedule = {
-    "parse_data": {
-        "task": "tickets.tasks.parse_data",
+    "send_ads": {
+        "task": "bot.tasks.send_ads",
         "schedule": crontab(minute="*/5"),
     },
     "delete_old_ads": {
         "task": "ads.tasks.delete_old_ads",
         "schedule": crontab(hour="*/12"),
     },
-    "send_ads": {
-        "task": "ads.tasks.send_ads",
+    "run_spiders":{
+        "task": "scraper.tasks.run_spiders",
         "schedule": crontab(minute="*/5"),
     },
 }
