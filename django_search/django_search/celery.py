@@ -25,3 +25,8 @@ app.conf.beat_schedule = {
         "schedule": crontab(minute="*/5"),
     },
 }
+
+app.conf.update(
+    worker_max_tasks_per_child=1,
+    broker_pool_limit=None
+)

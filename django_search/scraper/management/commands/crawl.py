@@ -13,9 +13,7 @@ class Command(BaseCommand):
 
         process = CrawlerProcess(get_project_settings())
 
-        spiders = [MyMarketSpider,
-                   MyHomeSpider,
-                   SsSpider]
+        spiders = [MyMarketSpider, MyHomeSpider, SsSpider]
         for spider in spiders:
             process.crawl(spider)
 

@@ -27,7 +27,7 @@ services:
     build:
       context: django_search/
       dockerfile: Dockerfile
-    command: celery -A django_search.celery.app worker --pool=prefork -l info
+    command: celery -A django_search -P treads --pool=prefork -l info
     volumes:
       - ./django_search:/home/app/web
     env_file:
