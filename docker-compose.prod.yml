@@ -10,17 +10,11 @@ services:
     env_file:
       - ./.env
 
-  rabbitmq:
-    image: rabbitmq:3.11-alpine
-    container_name: rabbitmq
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
     restart: always
-    volumes:
-      - ./rabbitmq:/var/lib/rabbitmq
-    env_file:
-      - ./.env
-    ports:
-      - 15672:15672
-      - 5672:5672
+  
 
   celeryworker:
     container_name: celeryworker
@@ -33,7 +27,7 @@ services:
     env_file:
       - ./.env
     depends_on:
-      - rabbitmq
+      - redis
   
   celeryscheduler:
     container_name: celeryscheduler
@@ -46,7 +40,7 @@ services:
     env_file:
       - ./.env
     depends_on:
-      - rabbitmq
+      - redis
 
   web:
     container_name: web
@@ -64,7 +58,7 @@ services:
       - 8000
     depends_on:
       - postgres
-      - rabbitmq
+      - redis
   
   bot:
     container_name: bot
