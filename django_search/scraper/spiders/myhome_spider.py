@@ -8,7 +8,6 @@ from ..items import AdScraperItem
 
 class MyHomeSpider(scrapy.Spider):
     name = "MyHome"
-
     resource = Resource.objects.get(name__icontains=name)
     tickets = resource.tickets.filter(is_active=True)
     iter_tickets = iter(tickets)
