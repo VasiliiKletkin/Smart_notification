@@ -48,7 +48,7 @@ services:
       context: django_search/
       dockerfile: Dockerfile
     restart: always
-    command: python manage.py migrate && gunicorn django_search.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn django_search.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - ./django_search/staticfiles:/home/app/web/staticfiles
       - ./django_search/mediafiles:/home/app/web/mediafiles
