@@ -30,4 +30,5 @@ class MyMarketSpider(scrapy.Spider):
             ad["url"] = f'https://www.mymarket.ge/ru/pr/{item["product_id"]}'
             ad["title"] = item["title"]
             ad["ticket"] = Ticket.objects.get(url=unquote(response.url))
+            ad.save()
             yield ad
